@@ -14,8 +14,11 @@
       <p>Twittler v.0.0.1</p>
     </header>
 
-    <nav style="display:none;">
-      <p><a href="#" id="reset">reset</a></p>
+    <nav>
+      <div id="navmenu">
+        <a href="#" id "write_tweet">Write New Tweet</a> 
+        <a href="#" id="reset">View all tweets</a>
+      </div>
     </nav>
 
     <div id="stream">
@@ -23,6 +26,9 @@
 
     <script>
       $(document).ready(function(){
+
+        // On initial load, hide the reset link.
+        $('#reset').hide();
 
         var filterMode = "_all"; // Choose whether we're filtering by a specific username or showing all tweets.
 
@@ -70,7 +76,7 @@
         // Update the stream at a set interval and append new tweets to the page.
         setInterval(function() {
           updateStream();
-
+          return;
         }, 5500);
       
         // Filter the stream to only show tweets from a specific username.
@@ -82,7 +88,7 @@
           $('#stream').html('');
 
           // Show our nav
-          $('nav').show();
+          $('#reset').show();
 
           // Display all tweets from user.
           // TODO: Refactor our initial getTweet function to utilize this code as well.
@@ -110,7 +116,7 @@
             getTweets(null, index);
             index -= 1;
           }
-          $('nav').hide();
+          $('#reset').hide();
         });
 
         // Highlight tweet when we mouse over it.
