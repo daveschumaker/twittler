@@ -11,41 +11,59 @@
       <p>Twittler v.0.0.1</p>
     </header>
 
+    <nav style="display:none;">
+      <p><a href="#" id="reset">reset</a></p>
+    </nav>
+
     <div id="stream">
     </div>
 
     <script>
       $(document).ready(function(){
 
+        var filterMode = "_all"; // Choose whether we're filtering by a specific username or showing all tweets.
+
         // Initially load the Twitter stream
         var index = streams.home.length - 1;
 
-        // Keep track of where our old initial index was so that we can display
-        // new tweets that are pushed to the array and stop when we get to 
-        // tweets that have already been displayed.
+        // Keep track of where our old initial index was so that we can display new tweets that are pushed to the array and stop when we get to tweets that have already been displayed.
         var oldindex = index;
 
         // Get tweets from our array.
-        var getTweets = function (action) {
-          var tweet = streams.home[index];
-          var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
-          //$tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.html('<a href="#">@' + tweet.user + '</a>: ' + tweet.message + '<br>' + tweet.created_at + '<br><br>');
-          $tweet.prependTo($("#stream"));        
+        var getTweets = function (userTweets, index) {
+          if (filterMode == "_all") {
+            var tweet = streams.home[index];
+            var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
+            //$tweet.text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.html('<a href="#">@' + tweet.user + '</a>: ' + tweet.message + '<br>' + tweet.created_at + '<br><br>');
+            $tweet.prependTo($("#stream"));              
+          } else {
+            //console.log(index);
+            //var tweet = userTweets[index];
+            var tweet = streams.users[filterMode][index];
+            var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
+            //$tweet.text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.html('<a href="#">@' + tweet.user + '</a>: ' + tweet.message + '<br>' + tweet.created_at + '<br><br>');
+            $tweet.prependTo($("#stream"));
+          }
         }
 
-
         while(index >= 0){
-          getTweets();
+          getTweets(null, index);
           index -= 1;
         }
 
         // Call this function with an interval to get new tweets that have been pushed to the stream.
         var updateStream = function() {
-          index = streams.home.length - 1;
+          if (filterMode == "_all") {
+            index = streams.home.length - 1;
+          } else {
+            index = streams.users[filterMode].length - 1;
+          }
+          
           var newIndex = index + 1;
           while (index >= oldindex) {
-            getTweets();
+            getTweets(null, index);
             index -= 1;
           };
           oldindex = newIndex;
@@ -55,7 +73,7 @@
         setInterval(function() {
           updateStream();
 
-        }, 1500);
+        }, 5500);
       
         // Filter the stream to only show tweets from a specific username.
         $('#stream').on('click', 'a', function() {
@@ -64,6 +82,9 @@
 
           // Clear out stream so we can only display tweets from specific user.
           $('#stream').html('');
+
+          // Show our nav
+          $('nav').show();
 
           // Display all tweets from user.
           // TODO: Refactor our initial getTweet function to utilize this code as well.
@@ -75,23 +96,27 @@
 
           //while(countTweets >= 0){
           for (var i = 0; i <= countTweets; i++) {
-            var tweet = userTweets[i];
-            var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
-            //$tweet.text('@' + tweet.user + ': ' + tweet.message);
-            $tweet.html('<a href="#">@' + tweet.user + '</a>: ' + tweet.message + '<br>' + tweet.created_at + '<br><br>');
-            $tweet.prependTo($("#stream"));   
-
-            //countTweets -= 1;
+            filterMode = filtername;
+            getTweets(userTweets, i);
           }          
-          
 
+        });
 
-          //alert(numUserTweets.length);
-
-          //alert("GOT YOU GOOD. " + filtername);
-        });      
+        // Reset button to show all tweets again.
+        $('nav').on('click', '#reset', function () {
+          filterMode = "_all";
+          index = streams.home.length - 1;
+          oldindex = index;
+          console.log(index);
+          while(index >= 0){
+            getTweets(null, index);
+            index -= 1;
+          }
+          $('nav').hide();
+        });
 
       });
+
     </script>
   </body>
 </html>
