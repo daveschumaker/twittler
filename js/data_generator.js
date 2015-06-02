@@ -18,7 +18,6 @@ var addTweet = function(newTweet){
   var username = newTweet.user;
   streams.users[username].push(newTweet);
   streams.home.push(newTweet);
-  console.log(newTweet); // Adding this so I can see how often new tweets are generated.
 };
 
 // utility function
@@ -47,13 +46,13 @@ var generateRandomTweet = function(){
   addTweet(tweet);
 };
 
-for(var i = 0; i < 5; i++){
+for(var i = 0; i < 10; i++){
   generateRandomTweet();
 }
 
 var scheduleNextTweet = function(){
   generateRandomTweet();
-  setTimeout(scheduleNextTweet, Math.random() * 15000);
+  setTimeout(scheduleNextTweet, Math.random() * 1500);
 };
 scheduleNextTweet();
 
