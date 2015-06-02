@@ -30,7 +30,7 @@
           var tweet = streams.home[index];
           var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
           //$tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.html('@' + tweet.user + ': ' + tweet.message + '<br>' + tweet.created_at + '<br><br>');
+          $tweet.html('<a href="#">@' + tweet.user + '</a>: ' + tweet.message + '<br>' + tweet.created_at + '<br><br>');
           $tweet.prependTo($("#stream"));        
         }
 
