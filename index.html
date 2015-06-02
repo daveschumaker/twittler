@@ -42,7 +42,7 @@
 
           var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
           //$tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.html('<span class="username"><a href="#">@' + tweet.user + '</a></span>: ' + tweet.message + '<br><span class="tweet-time">' + tweet.created_at + '</span><br><br>');
+          $tweet.html('<span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time">' + tweet.created_at + '</span><br><br>');
           $tweet.prependTo($("#stream"));          
         }
 
@@ -112,6 +112,16 @@
           }
           $('nav').hide();
         });
+
+        // Highlight tweet when we mouse over it.
+        $('#stream').on('mouseenter', '.tweet', function() {
+          $(this).toggleClass('highlight');
+        })
+
+        // Un-highlight tweet when we move mouse away
+        $('#stream').on('mouseleave', '.tweet', function() {
+          $(this).toggleClass('highlight');
+        })        
 
       });
 

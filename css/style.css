@@ -39,6 +39,33 @@ a:link, a:visited, a:hover {
   -moz-border-radius: 5px;
   border-radius: 5px;
   margin: 0 auto 10px auto;
-  padding: 5px;
   width: 85%;
+}
+
+.tweet {
+  padding: 5px;  
+}
+
+.tweet-text {
+  font-size: 1.5em;
+  line-height: 1.8em;
+}
+
+/* When user mouses over a tweet, we'll change background color.
+It's a nice and pleasant effect that Twitter also uses.*/
+.highlight {
+  background-color: #E6E6E6;
+}
+
+.avatar {
+  display: inline;
+  float: left;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  background: blue;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  clear: both;
 }
