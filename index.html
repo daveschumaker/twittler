@@ -32,8 +32,15 @@
           return months[monthIndex] + " " + day + ", " + year + " at " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(); 
         };
 
+        // Initially load the Twitter stream
         var index = streams.home.length - 1;
-        while(index >= 0){
+
+        // Keep track of where our old initial index was so that we can display
+        // new tweets that are pushed to the array and stop when we get to 
+        // tweets that have already been displayed.
+        var oldindex = index;
+
+        var getTweets = function () {
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
@@ -42,10 +49,30 @@
           // Add ability to append timestamp to tweets
           var $timestamp = $('<div></div>');
           $timestamp.text(getDate());
-          $timestamp.appendTo("#stream");
+          $timestamp.appendTo("#stream");          
+        }
 
+
+        while(index >= 0){
+          getTweets();
           index -= 1;
         }
+
+        // Call this function with an interval to get new tweets that have been pushed to the stream.
+        var updateStream = function() {
+          index = streams.home.length - 1;
+          var newIndex = index + 1;
+          while (index >= oldindex) {
+            getTweets();
+            index -= 1;
+          };
+          oldindex = newIndex;
+        };
+
+        // Update the stream at a set interval and append new tweets to the page.
+        setInterval(function() {
+          updateStream();
+        }, 1500);
 
       });
     </script>
