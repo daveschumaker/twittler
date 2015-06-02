@@ -59,7 +59,36 @@
       
         // Filter the stream to only show tweets from a specific username.
         $('#stream').on('click', 'a', function() {
-          alert("GOT YOU GOOD. " + $(this).closest('.tweet').data('username'));
+          // Store the username that we want to filter.
+          var filtername = $(this).closest('.tweet').data('username');
+
+          // Clear out stream so we can only display tweets from specific user.
+          $('#stream').html('');
+
+          // Display all tweets from user.
+          // TODO: Refactor our initial getTweet function to utilize this code as well.
+          var userTweets = streams.users[filtername];
+          var countTweets = userTweets.length - 1;
+
+          console.log(userTweets);
+          console.log(countTweets);
+
+          //while(countTweets >= 0){
+          for (var i = 0; i <= countTweets; i++) {
+            var tweet = userTweets[i];
+            var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
+            //$tweet.text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.html('<a href="#">@' + tweet.user + '</a>: ' + tweet.message + '<br>' + tweet.created_at + '<br><br>');
+            $tweet.prependTo($("#stream"));   
+
+            //countTweets -= 1;
+          }          
+          
+
+
+          //alert(numUserTweets.length);
+
+          //alert("GOT YOU GOOD. " + filtername);
         });      
 
       });
