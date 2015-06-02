@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" /> 
     <title>Twittler</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
   </head>
@@ -32,20 +34,15 @@
         // Get tweets from our array.
         var getTweets = function (userTweets, index) {
           if (filterMode == "_all") {
-            var tweet = streams.home[index];
-            var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
-            //$tweet.text('@' + tweet.user + ': ' + tweet.message);
-            $tweet.html('<a href="#">@' + tweet.user + '</a>: ' + tweet.message + '<br>' + tweet.created_at + '<br><br>');
-            $tweet.prependTo($("#stream"));              
+            var tweet = streams.home[index];           
           } else {
-            //console.log(index);
-            //var tweet = userTweets[index];
             var tweet = streams.users[filterMode][index];
-            var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
-            //$tweet.text('@' + tweet.user + ': ' + tweet.message);
-            $tweet.html('<a href="#">@' + tweet.user + '</a>: ' + tweet.message + '<br>' + tweet.created_at + '<br><br>');
-            $tweet.prependTo($("#stream"));
           }
+
+          var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
+          //$tweet.text('@' + tweet.user + ': ' + tweet.message);
+          $tweet.html('<span class="username"><a href="#">@' + tweet.user + '</a></span>: ' + tweet.message + '<br><span class="tweet-time">' + tweet.created_at + '</span><br><br>');
+          $tweet.prependTo($("#stream"));          
         }
 
         while(index >= 0){
