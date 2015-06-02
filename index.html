@@ -28,14 +28,10 @@
         // Get tweets from our array.
         var getTweets = function (action) {
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.prependTo($("#stream"));
-
-          // Add ability to append timestamp to tweets
-          var $timestamp = $('<div></div>');
-          $timestamp.text(tweet.created_at);
-          $timestamp.prependTo("#stream");          
+          var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
+          //$tweet.text('@' + tweet.user + ': ' + tweet.message);
+          $tweet.html('@' + tweet.user + ': ' + tweet.message + '<br>' + tweet.created_at + '<br><br>');
+          $tweet.prependTo($("#stream"));        
         }
 
 
