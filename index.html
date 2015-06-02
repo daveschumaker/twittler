@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
     <script src="jquery.js"></script>
-    <script src="data_generator.js"></script>
+    <script src="js/jquery.timeago.js"></script>
+    <script src="js/data_generator.js"></script>
   </head>
   <body>
     <header>
@@ -26,8 +27,7 @@
 
     <script>
       $(document).ready(function(){
-
-        // On initial load, hide the reset link.
+        // On initial load, hide the reset link that's displayed when we filter links.
         $('#reset').hide();
 
         var filterMode = "_all"; // Choose whether we're filtering by a specific username or showing all tweets.
@@ -48,7 +48,7 @@
 
           var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
           //$tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.html('<span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time">' + tweet.created_at + '</span><br><br>');
+          $tweet.html('<span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time"><abbr class="timeago" title="' + tweet.created_at.toISOString() + '">' + tweet.created_at + '</abbr></span>');
           $tweet.prependTo($("#stream"));          
         }
 
@@ -73,11 +73,14 @@
           oldindex = newIndex;
         };
 
+        $("abbr.timeago").timeago();
+
         // Update the stream at a set interval and append new tweets to the page.
         setInterval(function() {
+          $("abbr.timeago").timeago();
           updateStream();
           return;
-        }, 5500);
+        }, 100);
       
         // Filter the stream to only show tweets from a specific username.
         $('#stream').on('click', 'a', function() {
