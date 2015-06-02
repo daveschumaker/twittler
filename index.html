@@ -25,16 +25,17 @@
         // tweets that have already been displayed.
         var oldindex = index;
 
-        var getTweets = function () {
+        // Get tweets from our array.
+        var getTweets = function (action) {
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($("#stream"));
+          $tweet.prependTo($("#stream"));
 
           // Add ability to append timestamp to tweets
           var $timestamp = $('<div></div>');
           $timestamp.text(tweet.created_at);
-          $timestamp.appendTo("#stream");          
+          $timestamp.prependTo("#stream");          
         }
 
 
