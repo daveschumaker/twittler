@@ -4,12 +4,18 @@
 
 body {
   background-color: #F0FFFF;
+  font-family: 'Raleway', sans-serif;
+  line-height: 1.3em;
 }
 
 header {
   font-weight: bold;
   margin: 5px auto 20px auto;
   width: 85%;
+}
+
+header, #stream {
+  max-width: 800px;
 }
 
 a:link, a:visited, a:hover {
@@ -30,6 +36,8 @@ a:link, a:visited, a:hover {
 #stream {
   background-color: #fff;
   border: 1px solid #E8E8E8;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   margin: 0 auto 10px auto;
   padding: 5px;
   width: 85%;
