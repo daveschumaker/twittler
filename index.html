@@ -54,7 +54,13 @@
         // Update the stream at a set interval and append new tweets to the page.
         setInterval(function() {
           updateStream();
+
         }, 1500);
+      
+        // Filter the stream to only show tweets from a specific username.
+        $('#stream').on('click', 'a', function() {
+          alert("GOT YOU GOOD. " + $(this).closest('.tweet').data('username'));
+        });      
 
       });
     </script>
