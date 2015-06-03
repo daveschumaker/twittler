@@ -1,12 +1,28 @@
-var userColors = []; // Array to store randomly picked user colors for the avatars.
+/**
+* Twittler.js (June 2015)
+* Written by Dave Schumaker for Hack Reactor 31 pre-coursework
+*
+**/
 
-var getAvatarColor = function() {
-  var colorArray = ["#A6DDFF", "#FF5471", "#62FF54", "#FF9854", 
-  "#FFFC54", "#B254FF", "#548AFF", "#FFC5A8"];
+var userColors = {}; // Object to store randomly picked user colors for the avatars.
+
+var getAvatarColor = function(username, action) {
+  var colorArray = ["#A6DDFF", "#FF5471", "#62FF54", "#3DF5E2", "#FF9854", 
+  "#FFFC54", "#B254FF", "#548AFF", "#FFC5A8", "#B9EDE8", "#5C75E6"];
 
   var myColor = colorArray[Math.floor(Math.random() * (colorArray.length - 1))];
 
-  console.log(myColor);
+  var userFound = false;
+  $.each(userColors, function(index, value) {
+    if (index == username) { userFound = true};
+  });
+
+  if (userFound === false) {
+    userColors[username] = myColor; 
+  }
+
+  return userColors[username];
+
 }
 
 $(document).ready(function(){
@@ -36,6 +52,9 @@ $(document).ready(function(){
       var tweet = streams.users[filterMode][index];
     }
 
+    // Assign color if needed.
+    var bgColor = getAvatarColor(tweet.user);
+
     // Detect if this is an update and apply proper classes (e.g., to highlight new tweets)
     var classes;
     if (action == "update") {
@@ -46,16 +65,16 @@ $(document).ready(function(){
 
     // Build a div containing all the information for this particular tweet.
     var $tweet = $('<div class="' + classes + '" data-username="' + tweet.user +'"></div>');
-    $tweet.html('<a href="#" class="imglink"><img src="images/avatar_125px.png" class="avatar"></a><span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time"><abbr class="timeago" title="' + tweet.created_at.toISOString() + '">' + tweet.created_at + '</abbr></span>');
+    $tweet.html('<a href="#" class="imglink"><img src="images/avatar_125px.png" class="avatar" style="background-color: ' + bgColor + '"></a><span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time"><abbr class="timeago" title="' + tweet.created_at.toISOString() + '">' + tweet.created_at + '</abbr></span>');
     $tweet.prependTo($("#stream"));         
 
     if (action == "update") {
       $('.tweet').first('').slideDown(function () {
         //$(this).closest('.tweet').animate({"background-color" : "#fff"}, 200);
       });
-    }
-       
-  }
+    };
+    
+  };
 
   while(index >= 0){
     getTweets(null, index);

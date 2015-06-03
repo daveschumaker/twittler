@@ -51,6 +51,7 @@ a:hover {
 
 .tweet-time {
   color: #B0B0B0;
+  display: inline-block;
   font-size: .8em;
   line-height: 1em;
 }
@@ -76,7 +77,7 @@ a:hover {
 .tweet-text {
   display: inline-block;
   font-size: 1.5em;
-  line-height: 1.8em;
+  line-height: 1.5em;
 }
 
 /* Margin to move tweet information past the avatar.*/
