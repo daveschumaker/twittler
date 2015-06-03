@@ -12,7 +12,7 @@
   </head>
   <body>
     <header>
-      <p>Twittler v.0.0.1</p>
+      <p><a href="index.html">Twittler v.0.0.1</a></p>
     </header>
 
     <nav>
@@ -24,6 +24,10 @@
 
     <div id="stream">
     </div>
+
+    <footer>
+      Written by Dave Schumaker for Hack Reactor 31.
+    </footer>
 
     <script>
       $(document).ready(function(){
@@ -39,17 +43,34 @@
         var oldindex = index;
 
         // Get tweets from our array.
-        var getTweets = function (userTweets, index) {
+        var getTweets = function (userTweets, index, action) {
+          // Depending on what mode the user has clicked will depend on where the stream will come from (either streams.home or streams.users[username])
           if (filterMode == "_all") {
             var tweet = streams.home[index];           
           } else {
             var tweet = streams.users[filterMode][index];
           }
 
-          var $tweet = $('<div class="tweet" data-username="' + tweet.user +'"></div>');
+          // Detect if this is an update and apply proper classes
+          var classes;
+          if (action == "update") {
+            classes = "tweet highlight-new";       
+          } else {
+            classes = "tweet";         
+          }
+
+
+          var $tweet = $('<div class="' + classes + '" data-username="' + tweet.user +'"></div>');
           //$tweet.text('@' + tweet.user + ': ' + tweet.message);
           $tweet.html('<span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time"><abbr class="timeago" title="' + tweet.created_at.toISOString() + '">' + tweet.created_at + '</abbr></span>');
-          $tweet.prependTo($("#stream"));          
+          $tweet.prependTo($("#stream"));         
+
+          if (action == "update") {
+            $('.tweet').first('').slideDown(function () {
+              //$(this).closest('.tweet').animate({"background-color" : "#fff"}, 200);
+            });
+          }
+             
         }
 
         while(index >= 0){
@@ -67,7 +88,7 @@
           
           var newIndex = index + 1;
           while (index >= oldindex) {
-            getTweets(null, index);
+            getTweets(null, index, "update");
             index -= 1;
           };
           oldindex = newIndex;

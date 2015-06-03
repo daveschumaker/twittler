@@ -16,6 +16,13 @@ header {
   width: 85%;
 }
 
+footer {
+  margin: 5px auto 10px auto;
+  padding: 5px 0 10px 0;
+  text-align: center;
+  width: 85%;  
+}
+
 nav {
   background-color: #fff;
   font-size: 1em;
@@ -62,7 +69,7 @@ a:hover {
 }
 
 .tweet {
-  padding: 5px;  
+  padding: 5px 5px 20px 5px;  
 }
 
 .tweet-text {
@@ -74,6 +81,10 @@ a:hover {
 It's a nice and pleasant effect that Twitter also uses.*/
 .highlight {
   background-color: #E6E6E6;
+}
+
+.highlight-new {
+  display: none;
 }
 
 .avatar {
