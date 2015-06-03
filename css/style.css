@@ -80,7 +80,7 @@ a:hover {
 /* When user mouses over a tweet, we'll change background color.
 It's a nice and pleasant effect that Twitter also uses.*/
 .highlight {
-  background-color: #E6E6E6;
+  background-color: #F7F7F7;
 }
 
 .highlight-new {
