@@ -1,25 +1,42 @@
+var userColors = []; // Array to store randomly picked user colors for the avatars.
+
+var getAvatarColor = function() {
+  var colorArray = ["#A6DDFF", "#FF5471", "#62FF54", "#FF9854", 
+  "#FFFC54", "#B254FF", "#548AFF", "#FFC5A8"];
+
+  var myColor = colorArray[Math.floor(Math.random() * (colorArray.length - 1))];
+
+  console.log(myColor);
+}
+
 $(document).ready(function(){
   // On initial load, hide the reset link that's displayed when we filter links.
   $('#reset').hide();
 
-  var filterMode = "_all"; // Choose whether we're filtering by a specific username or showing all tweets.
+  // Choose whether we're filtering by a specific username or showing all tweets.
+  var filterMode = "_all"; 
 
-  // Initially load the Twitter stream
+  // Initially load the Twitter stream generated from data_generator.js
+  // and count number of items in the array.
   var index = streams.home.length - 1;
 
-  // Keep track of where our old initial index was so that we can display new tweets that are pushed to the array and stop when we get to tweets that have already been displayed.
+  /* Keep track of where our old initial index was 
+  // so that we can display new tweets that are pushed to the array 
+  // and stop when we get to tweets that have already been displayed. */
   var oldindex = index;
 
-  // Get tweets from our array.
+  // Grab all tweets from our array.
   var getTweets = function (userTweets, index, action) {
     // Depending on what mode the user has clicked will depend on where the stream will come from (either streams.home or streams.users[username])
     if (filterMode == "_all") {
+      // Grab tweets from public stream.
       var tweet = streams.home[index];           
     } else {
+      // Only grab tweets from a particular user that we set in the "filterMode" variable
       var tweet = streams.users[filterMode][index];
     }
 
-    // Detect if this is an update and apply proper classes
+    // Detect if this is an update and apply proper classes (e.g., to highlight new tweets)
     var classes;
     if (action == "update") {
       classes = "tweet highlight-new";       
@@ -27,10 +44,9 @@ $(document).ready(function(){
       classes = "tweet";         
     }
 
-
+    // Build a div containing all the information for this particular tweet.
     var $tweet = $('<div class="' + classes + '" data-username="' + tweet.user +'"></div>');
-    //$tweet.text('@' + tweet.user + ': ' + tweet.message);
-    $tweet.html('<span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time"><abbr class="timeago" title="' + tweet.created_at.toISOString() + '">' + tweet.created_at + '</abbr></span>');
+    $tweet.html('<a href="#" class="imglink"><img src="images/avatar_125px.png" class="avatar"></a><span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time"><abbr class="timeago" title="' + tweet.created_at.toISOString() + '">' + tweet.created_at + '</abbr></span>');
     $tweet.prependTo($("#stream"));         
 
     if (action == "update") {
