@@ -81,7 +81,7 @@ $(document).ready(function(){
     index -= 1;
   }
 
-  // Function to get and update all times.
+  // Function to get and update all times using momentjs.
   var updateTime = function() {
     $('.tweet-time').each(function() {
       var getTime = $(this).attr('data-createdAt');
@@ -125,13 +125,10 @@ $(document).ready(function(){
     // Show our nav
     $('#reset').show();
 
-    // Display all tweets from user.
+    // Display all tweets from a specific user.
     // TODO: Refactor our initial getTweet function to utilize this code as well.
     var userTweets = streams.users[filtername];
     var countTweets = userTweets.length - 1;
-
-    console.log(userTweets);
-    console.log(countTweets);
 
     //while(countTweets >= 0){
     for (var i = 0; i <= countTweets; i++) {
@@ -141,17 +138,27 @@ $(document).ready(function(){
 
   });
 
-  // Reset button to show all tweets again.
-  $('nav').on('click', '#reset', function () {
+  // Show all tweets by default.
+  // Useful for both our nav reset and clicking on the logo.
+  var showAll = function() {
     filterMode = "_all";
     index = streams.home.length - 1;
     oldindex = index;
-    console.log(index);
     while(index >= 0){
       getTweets(null, index);
       index -= 1;
     }
     $('#reset').hide();
+  };
+
+  // Reset button to show all tweets again.
+  $('nav').on('click', '#reset', function () {
+    showAll();
+  });
+
+  // Clicking on the logo shows all tweets without reloading the page.
+  $('#logo').on('click', function() {
+    showAll();
   });
 
   // Highlight tweet when we mouse over it.
