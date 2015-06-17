@@ -65,7 +65,7 @@ $(document).ready(function(){
 
     // Build a div containing all the information for this particular tweet.
     var $tweet = $('<div class="' + classes + '" data-username="' + tweet.user +'"></div>');
-    $tweet.html('<a href="#" class="imglink"><img src="images/avatar_125px.png" class="avatar" style="background-color: ' + bgColor + '"></a><span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time"><abbr class="timeago" title="' + tweet.created_at.toISOString() + '">' + tweet.created_at + '</abbr></span>');
+    $tweet.html('<a href="#" class="imglink"><img src="images/avatar_125px.png" class="avatar" style="background-color: ' + bgColor + '"></a><span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time" data-createdAt="' + tweet.created_at + '">' + tweet.created_at + '</span>');
     $tweet.prependTo($("#stream"));         
 
     if (action == "update") {
@@ -79,6 +79,14 @@ $(document).ready(function(){
   while(index >= 0){
     getTweets(null, index);
     index -= 1;
+  }
+
+  // Function to get and update all times.
+  var updateTime = function() {
+    $('.tweet-time').each(function() {
+      var getTime = $(this).attr('data-createdAt');
+      $(this).text(moment(getTime).fromNow());
+    });
   }
 
   // Call this function with an interval to get new tweets that have been pushed to the stream.
@@ -101,8 +109,8 @@ $(document).ready(function(){
 
   // Update the stream at a set interval and append new tweets to the page.
   setInterval(function() {
-    //$("abbr.timeago").timeago();
-    updateStream();
+    updateStream(); // Update stream.
+    updateTime(); // Update time after stream is updated.
     return;
   }, 100);
 
