@@ -36,7 +36,7 @@ nav {
   padding: 5px;
 }
 
-header, nav, #stream {
+header, nav, #stream, #userInfo {
   max-width: 800px;
 }
 
@@ -60,13 +60,23 @@ a:hover {
   font-weight: bold;
 }
 
-#stream {
+#stream, #userInfo {
   background-color: #fff;
   border: 1px solid #E8E8E8;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  margin: 0 auto 10px auto;
   width: 85%;
+}
+
+#stream {
+  border-radius: 5px;  
+  -moz-border-radius: 5px;
+  margin: 0 auto 10px auto; 
+}
+
+#userInfo {
+  border-radius: 5px 5px 0 0;  
+  -moz-border-radius: 5px 5px 0 0;
+  border-bottom: 0;
+  margin: 0 auto 0px auto;
 }
 
 .tweet {
@@ -83,6 +93,20 @@ a:hover {
 /* Margin to move tweet information past the avatar.*/
 .username, .tweet-text, .tweet-time {
   margin-left: 75px;
+}
+
+#usernameInfo {
+  font-size: 3.5em;
+  font-weight: bold;
+  float: right;
+  margin: 30px 25px 0 0;
+}
+
+#totalTweets {
+  clear: both;
+  float: right;
+  color: #B0B0B0;
+  margin: 25px 30px;
 }
 
 /* When user mouses over a tweet, we'll change background color.
@@ -106,4 +130,15 @@ It's a nice and pleasant effect that Twitter also uses.*/
   -webkit-border-radius: 50px;
   border-radius: 50px;
   position: absolute;
+}
+
+#bigavatar {
+  border: 1px solid black;
+  width: 200px;
+  height: 200px;
+  margin: 20px 10px 20px 20px;
+  background: #FFFC54;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
 }

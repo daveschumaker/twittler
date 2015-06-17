@@ -28,6 +28,7 @@ var getAvatarColor = function(username, action) {
 $(document).ready(function(){
   // On initial load, hide the reset link that's displayed when we filter links.
   $('#reset').hide();
+  $('#userInfo').hide();
 
   // Choose whether we're filtering by a specific username or showing all tweets.
   var filterMode = "_all"; 
@@ -95,6 +96,11 @@ $(document).ready(function(){
       index = streams.home.length - 1;
     } else {
       index = streams.users[filterMode].length - 1;
+
+      // Total tweets from this user:
+      var totalTweets = streams.users[filterMode].length;
+      $('#totalTweets').text('Total tweets: ' + totalTweets);
+      //console.log('User tweets: ' + totalTweets);
     }
     
     var newIndex = index + 1;
@@ -121,6 +127,12 @@ $(document).ready(function(){
 
     // Clear out stream so we can only display tweets from specific user.
     $('#stream').html('');
+
+    // Show user specific information.
+    var bgColor = getAvatarColor(filtername);
+    $('#bigavatar').css('backgroundColor', bgColor);
+    $('#usernameInfo').text(filtername);
+    $('#userInfo').show();
 
     // Show our nav
     $('#reset').show();
@@ -149,6 +161,7 @@ $(document).ready(function(){
       index -= 1;
     }
     $('#reset').hide();
+    $('#userInfo').hide();
   };
 
   // Reset button to show all tweets again.
