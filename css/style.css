@@ -36,7 +36,7 @@ nav {
   padding: 5px;
 }
 
-header, nav, #stream, #userInfo {
+header, nav, .stream, #userInfo {
   max-width: 800px;
 }
 
@@ -60,16 +60,22 @@ a:hover {
   font-weight: bold;
 }
 
-#stream, #userInfo {
+.stream, #userInfo {
   background-color: #fff;
   border: 1px solid #E8E8E8;
   width: 85%;
 }
 
-#stream {
+.stream {
   border-radius: 5px;  
   -moz-border-radius: 5px;
   margin: 0 auto 10px auto; 
+}
+
+.streamPlusInfo {
+  border-radius: 0;  
+  -moz-border-radius: 0;
+  margin: 0 auto 10px auto;   
 }
 
 #userInfo {

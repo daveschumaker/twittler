@@ -4,6 +4,13 @@
 *
 **/
 
+
+/**
+* This section generates an array of random colors that get assigned to all of our
+* registered Twittler users. This is purely for stylistic reasons and to make
+* each user appear to be unique.
+**/
+
 var userColors = {}; // Object to store randomly picked user colors for the avatars.
 
 var getAvatarColor = function(username, action) {
@@ -25,6 +32,10 @@ var getAvatarColor = function(username, action) {
 
 }
 
+/**
+* Here is where all the Twittler magic is about to happen.
+**/
+
 $(document).ready(function(){
   // On initial load, hide the reset link that's displayed when we filter links.
   $('#reset').hide();
@@ -42,7 +53,7 @@ $(document).ready(function(){
   // and stop when we get to tweets that have already been displayed. */
   var oldindex = index;
 
-  // Grab all tweets from our array.
+  // Grab all tweets from stream array.
   var getTweets = function (userTweets, index, action) {
     // Depending on what mode the user has clicked will depend on where the stream will come from (either streams.home or streams.users[username])
     if (filterMode == "_all") {
@@ -67,7 +78,7 @@ $(document).ready(function(){
     // Build a div containing all the information for this particular tweet.
     var $tweet = $('<div class="' + classes + '" data-username="' + tweet.user +'"></div>');
     $tweet.html('<a href="#" class="imglink"><img src="images/avatar_125px.png" class="avatar" style="background-color: ' + bgColor + '"></a><span class="username"><a href="#">@' + tweet.user + '</a></span><br/><span class="tweet-text">' + tweet.message + '</span><br><span class="tweet-time" data-createdAt="' + tweet.created_at + '">' + tweet.created_at + '</span>');
-    $tweet.prependTo($("#stream"));         
+    $tweet.prependTo($(".stream"));         
 
     if (action == "update") {
       $('.tweet').first('').slideDown(function () {
@@ -121,18 +132,19 @@ $(document).ready(function(){
   }, 100);
 
   // Filter the stream to only show tweets from a specific username.
-  $('#stream').on('click', 'a', function() {
+  $('.stream').on('click', 'a', function() {
     // Store the username that we want to filter.
     var filtername = $(this).closest('.tweet').data('username');
 
     // Clear out stream so we can only display tweets from specific user.
-    $('#stream').html('');
+    $('.stream').html('');
 
     // Show user specific information.
     var bgColor = getAvatarColor(filtername);
     $('#bigavatar').css('backgroundColor', bgColor);
     $('#usernameInfo').text(filtername);
     $('#userInfo').show();
+    $('.stream').addClass('streamPlusInfo');
 
     // Show our nav
     $('#reset').show();
@@ -162,6 +174,7 @@ $(document).ready(function(){
     }
     $('#reset').hide();
     $('#userInfo').hide();
+    $('.stream').removeClass('streamPlusInfo');
   };
 
   // Reset button to show all tweets again.
@@ -175,12 +188,12 @@ $(document).ready(function(){
   });
 
   // Highlight tweet when we mouse over it.
-  $('#stream').on('mouseenter', '.tweet', function() {
+  $('.stream').on('mouseenter', '.tweet', function() {
     $(this).toggleClass('highlight');
   })
 
   // Un-highlight tweet when we move mouse away
-  $('#stream').on('mouseleave', '.tweet', function() {
+  $('.stream').on('mouseleave', '.tweet', function() {
     $(this).toggleClass('highlight');
   })        
 
