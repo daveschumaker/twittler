@@ -23,7 +23,7 @@ footer {
   width: 85%;  
 }
 
-nav {
+nav, #tweetstatus {
   background-color: #fff;
   font-size: 1em;
   line-height: 1.5em;
@@ -36,7 +36,29 @@ nav {
   padding: 5px;
 }
 
-header, nav, .stream, #userInfo {
+#tweetstatus {
+  max-width: 800px;
+}
+
+#tweetstatus h1 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 5px 0 5px 5px;
+}
+
+.twitstatus {
+  position: relative;
+  margin: 0px 10px 5px 5px;
+}
+
+#tweetstatus input[type=text] {
+  font-size: 1.3em;
+  line-height: 1.5em;
+  width: 100%;
+
+}
+
+header, nav, .stream, #tweetstatus, #userInfo {
   max-width: 800px;
 }
 
@@ -60,7 +82,7 @@ a:hover {
   font-weight: bold;
 }
 
-.stream, #userInfo {
+.stream, #tweetstatus, #userInfo {
   background-color: #fff;
   border: 1px solid #E8E8E8;
   width: 85%;
