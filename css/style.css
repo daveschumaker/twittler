@@ -36,6 +36,20 @@ nav, #tweetstatus {
   padding: 5px;
 }
 
+/* Clearfix */
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+.group:after {
+  clear: both;
+}
+.group {
+  clear: both;
+  *zoom: 1;
+}
+
 #tweetstatus {
   max-width: 800px;
 }
@@ -52,9 +66,31 @@ nav, #tweetstatus {
 }
 
 .twitstatus textarea {
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;  
   font-size: 1.3em;
   width: 100%;
 
+}
+
+.btn {
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  border: 0;
+  color: #ffffff;
+  float: right;
+  font-size: 18px;
+  background: #3498db;
+  margin: 0 5px 5px 0;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  text-decoration: none;
 }
 
 .tweetstatusfocus textarea {
