@@ -56,7 +56,6 @@ nav, #tweetstatus {
 
 #tweetstatus h1 {
   font-size: 1.2em;
-  font-weight: bold;
   margin: 5px 0 5px 5px;
 }
 
@@ -94,7 +93,7 @@ nav, #tweetstatus {
 }
 
 .tweetstatusfocus textarea {
-  height: 100px;
+  height: 50px;
 }
 
 header, nav, .stream, #tweetstatus, #userInfo {
