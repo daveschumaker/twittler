@@ -40,6 +40,7 @@ $(document).ready(function(){
   // On initial load, hide the reset link that's displayed when we filter links.
   $('#reset').hide();
   $('#userInfo').hide();
+  $('#tweetstatus').show();
 
   // Choose whether we're filtering by a specific username or showing all tweets.
   var filterMode = "_all"; 
@@ -144,6 +145,8 @@ $(document).ready(function(){
     $('#bigavatar').css('backgroundColor', bgColor);
     $('#usernameInfo').text(filtername);
     $('#userInfo').show();
+    $('#tweetstatus').hide();
+
     $('.stream').addClass('streamPlusInfo');
 
     // Show our nav
@@ -174,6 +177,7 @@ $(document).ready(function(){
     }
     $('#reset').hide();
     $('#userInfo').hide();
+    $('#tweetstatus').show();
     $('.stream').removeClass('streamPlusInfo');
   };
 
