@@ -11,6 +11,8 @@
 * each user appear to be unique.
 **/
 
+var visitor = "MyUser"; // Global value for username of the visitor.
+
 var userColors = {}; // Object to store randomly picked user colors for the avatars.
 
 var getAvatarColor = function(username, action) {
@@ -180,6 +182,20 @@ $(document).ready(function(){
     $('#tweetstatus').show();
     $('.stream').removeClass('streamPlusInfo');
   };
+
+  // Do some magic when the user submits a new tweet.
+  $('#submittweet').on('click', function() {
+    //alert($('#usertwit').val());
+    var message = $('#usertwit').val();
+
+    // Check if username exists. If not, add it.
+    if (!streams.users[visitor]) {
+      streams.users[visitor] = [];
+    }
+
+    writeTweet(message);
+    $('#usertwit').val(""); // Reset the textarea.
+  })
 
   // Reset button to show all tweets again.
   $('nav').on('click', '#reset', function () {
