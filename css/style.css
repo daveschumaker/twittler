@@ -51,11 +51,14 @@ nav, #tweetstatus {
   margin: 0px 10px 5px 5px;
 }
 
-#tweetstatus input[type=text] {
+.twitstatus textarea {
   font-size: 1.3em;
-  line-height: 1.5em;
   width: 100%;
 
+}
+
+.tweetstatusfocus textarea {
+  height: 100px;
 }
 
 header, nav, .stream, #tweetstatus, #userInfo {
